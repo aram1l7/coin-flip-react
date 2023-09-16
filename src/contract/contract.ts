@@ -229,7 +229,7 @@ export default class CoinToss {
     ) {
         if (this._activeGame == null) {throw new Error(`No active game`)};
         while (this._openBets.length > 0) {
-            let bet = this._openBets.pop();
+            let bet: any = this._openBets.pop();
             var payout = 0;
             if ((bet.side == Side.HEADS && numberOfHeads >= bet.numberCorrect) 
               || (bet.side == Side.TAILS && numberOfTails >= bet.numberCorrect)) {
