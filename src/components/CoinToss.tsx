@@ -96,7 +96,6 @@ export default function CoinTossUx() {
         <GameAnimation
           gameState={gameAnimationState}
           gameResult={lastGameResultEvent}
-          side={side}
         />
       </div>
       <div className="history-wrapper">
