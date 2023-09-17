@@ -16,6 +16,7 @@ export default function CoinTossUx() {
   const [gameAnimationState, setGameAnimationState] = useState(
     GameAnimationState.IDLE
   );
+  const [side, setSide] = useState(0);
   const [lastGameResultEvent, setLastGameResultEvent] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
   const [betHistory, setBetHistory] = useState([]);
@@ -55,6 +56,16 @@ export default function CoinTossUx() {
     setGame(g);
   }, []);
 
+  useEffect(() => {
+    if (side === 0) {
+      document.querySelector(".heads")?.classList.add("visible");
+      document.querySelector(".tails")?.classList.remove("visible");
+    } else {
+      document.querySelector(".tails")?.classList.add("visible");
+      document.querySelector(".heads")?.classList.remove("visible");
+    }
+  }, [side]);
+
   const addToBetHistory = (betResultEvent: BetResultEvent) => {
     const bh: any = betHistory;
     bh.push(betResultEvent);
@@ -67,17 +78,27 @@ export default function CoinTossUx() {
     setGameHistory(gh);
   };
 
+  console.log(side, "side");
+
   return (
     <>
       <div className="">
-        <h1>Coin Toss</h1>
+        <h1 className="main-heading">Coin Toss</h1>
       </div>
-
-      <BetForm gameState={gameAnimationState} game={game} triggerAwaitingState={triggerAwaitingState} />
-      <GameAnimation
-        gameState={gameAnimationState}
-        gameResult={lastGameResultEvent}
-      />
+      <div className="container-wrapper">
+        <BetForm
+          side={side}
+          saveSide={setSide}
+          gameState={gameAnimationState}
+          game={game}
+          triggerAwaitingState={triggerAwaitingState}
+        />
+        <GameAnimation
+          gameState={gameAnimationState}
+          gameResult={lastGameResultEvent}
+          side={side}
+        />
+      </div>
       <GameHistory gameHistory={gameHistory} />
       <BetHistory betHistory={betHistory} />
     </>

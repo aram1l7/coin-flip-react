@@ -23,9 +23,10 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.tails {
+.visible {
   transform: rotateX(180deg);
 }
+
 @keyframes spin-tails {
   0% {
     transform: rotateX(0);
@@ -77,4 +78,32 @@
 
 .resulting-animation {
   animation: resulting-animation 5s linear;
+}
+
+.main-heading {
+  margin-top: 15px !important;
+  text-align: center;
+}
+
+.btn-wrapper {
+  margin-top: 15px;
+}
+
+.container-wrapper {
+  display: flex;
+  padding: 1.5rem;
+}
+
+.container-wrapper form {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30%;
+}
+
+.game-animation {
+  display: flex;
+  flex-basis: 70%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

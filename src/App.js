@@ -1,4 +1,5 @@
 import "./App.css";
+import "semantic-ui-css/semantic.min.css";
 import CoinTossUx from "./components/CoinToss.tsx";
 
 function App() {

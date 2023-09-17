@@ -1,10 +1,17 @@
 import { useMemo, useState } from "react";
 import React from "react";
 import { GameAnimationState } from "../constants/constants.ts";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
-export function BetForm({ game, triggerAwaitingState, gameState }) {
+export function BetForm({
+  game,
+  triggerAwaitingState,
+  gameState,
+  saveSide,
+  side,
+}) {
   const [wager, setWager] = useState(1);
-  const [side, setSide] = useState(0);
+
   const [numberOfCoins, setNumberOfCoins] = useState(1);
   const [numberCorrect, setNumberCorrect] = useState(1);
   const [probability, setProbability] = useState(0);
@@ -93,18 +100,13 @@ export function BetForm({ game, triggerAwaitingState, gameState }) {
   };
 
   const updateSide = (event) => {
-    const target = event.target;
-    var value = target.value;
-    setSide(value ? 0 : 1);
+    const value = event.target.checked;
+    saveSide(value ? 0 : 1);
   };
 
   return (
-    <div className="">
-      <div className="">
-        <h2>Bet Form</h2>
-      </div>
-
-      <div className="">
+    <Form>
+      <Form.Field>
         <label>Wager</label>
         <input
           className=""
@@ -117,23 +119,36 @@ export function BetForm({ game, triggerAwaitingState, gameState }) {
           placeholder="1"
           value={wager}
           onChange={updateWager}
-        ></input>
-      </div>
-
-      <div className="">
-        <label>Side (is heads)</label>
-        <input
-          className=""
+        />
+      </Form.Field>
+      <Form.Field>
+        <Checkbox
           id="isHeads"
           name="isHeads"
-          type="checkbox"
           placeholder="true"
-          checked={side == 0}
+          checked={side === 0}
           onChange={updateSide}
-        ></input>
-      </div>
+          label="Side (is heads)"
+        />
+      </Form.Field>
 
-      <div className="">
+      <Form.Field>
+        <label>Wager</label>
+        <input
+          className=""
+          id="wager"
+          name="wager"
+          type="number"
+          min="1"
+          max="10"
+          step="1"
+          placeholder="1"
+          value={wager}
+          onChange={updateWager}
+        />
+      </Form.Field>
+
+      <Form.Field>
         <label>Number of Coins</label>
         <input
           className=""
@@ -146,10 +161,10 @@ export function BetForm({ game, triggerAwaitingState, gameState }) {
           placeholder="1"
           value={numberOfCoins}
           onChange={updateNumberOfCoins}
-        ></input>
-      </div>
+        />
+      </Form.Field>
 
-      <div className="">
+      <Form.Field>
         <label>Number Correct</label>
         <input
           className=""
@@ -162,8 +177,8 @@ export function BetForm({ game, triggerAwaitingState, gameState }) {
           placeholder="1"
           value={numberCorrect}
           onChange={updateNumberCorrect}
-        ></input>
-      </div>
+        />
+      </Form.Field>
 
       {validBet ? (
         <>
@@ -183,14 +198,15 @@ export function BetForm({ game, triggerAwaitingState, gameState }) {
         <div className="">Invalid bet: {invalidReason}</div>
       )}
 
-      <div className="">
-        <input
-          type="button"
-          value="Place Bet"
+      <div className="btn-wrapper">
+        <Button
           onClick={validBet ? placeBet : () => {}}
-          disabled={!validBet}
-        ></input>
+          disabled={!validBet || gameState !== GameAnimationState.IDLE}
+          primary
+        >
+          Place Bet
+        </Button>
       </div>
-    </div>
+    </Form>
   );
 }

@@ -3,8 +3,7 @@ import tails from "../assets/tails.png";
 import React from "react";
 import { GameAnimationState } from "../constants/constants.ts";
 
-export function GameAnimation({ gameState, gameResult }) {
-  console.log(GameAnimationState[gameState].toString(), "gamestate");
+export function GameAnimation({ gameState, gameResult, side }) {
   const animationClass =
     gameState === GameAnimationState.AWAITING
       ? "awaiting-animation"
@@ -16,18 +15,30 @@ export function GameAnimation({ gameState, gameResult }) {
     <>
       <div className={`game-animation ${animationClass}`}>
         <div className="coin" id="coin">
-          <div className="heads">
+          <div
+            className={`heads ${
+              gameResult?.simulationResult?.toString() === "0"
+                ? "visible"
+                : ""
+            }`}
+          >
             <img src={heads} />
           </div>
-          <div className="tails">
+          <div
+            className={`tails ${
+              gameResult?.simulationResult?.toString() === "1"
+                ? "visible"
+                : ""
+            }`}
+          >
             <img src={tails} />
           </div>
         </div>
-      </div>
-      <div className="">
-        {gameState == GameAnimationState.RESULT
-          ? gameResult.simulationResult.toString()
-          : ""}
+        <div className="">
+          {gameState == GameAnimationState.RESULT
+            ? gameResult.simulationResult.toString()
+            : ""}
+        </div>
       </div>
     </>
   );
