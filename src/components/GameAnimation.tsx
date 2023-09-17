@@ -25,6 +25,18 @@ export function GameAnimation({ gameState, gameResult }) {
       }
     }
   }, [gameResult]);
+
+  useEffect(() => {
+    if (gameState === GameAnimationState.AWAITING) {
+      if (
+        document.querySelector(".heads")?.classList.contains("visible") &&
+        document.querySelector(".tails")?.classList.contains("visible")
+      ) {
+        document.querySelector(".heads")?.classList.remove("visible");
+      }
+    }
+  }, [gameState]);
+
   return (
     <>
       <div className={`game-animation ${animationClass}`}>
