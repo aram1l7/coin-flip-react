@@ -133,22 +133,6 @@ export function BetForm({
       </Form.Field>
 
       <Form.Field>
-        <label>Wager</label>
-        <input
-          className=""
-          id="wager"
-          name="wager"
-          type="number"
-          min="1"
-          max="10"
-          step="1"
-          placeholder="1"
-          value={wager}
-          onChange={updateWager}
-        />
-      </Form.Field>
-
-      <Form.Field>
         <label>Number of Coins</label>
         <input
           className=""
@@ -195,7 +179,7 @@ export function BetForm({
           </div>
         </>
       ) : (
-        <div className="">Invalid bet: {invalidReason}</div>
+        <div className="error">Invalid bet: {invalidReason}</div>
       )}
 
       <div className="btn-wrapper">

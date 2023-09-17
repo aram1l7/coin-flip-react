@@ -99,8 +99,10 @@ export default function CoinTossUx() {
           side={side}
         />
       </div>
-      <GameHistory gameHistory={gameHistory} />
-      <BetHistory betHistory={betHistory} />
+      <div className="history-wrapper">
+        <GameHistory gameHistory={gameHistory} />
+        <BetHistory betHistory={betHistory} />
+      </div>
     </>
   );
 }

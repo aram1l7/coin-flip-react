@@ -1,9 +1,12 @@
 import heads from "../assets/heads.png";
 import tails from "../assets/tails.png";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GameAnimationState } from "../constants/constants.ts";
 
-export function GameAnimation({ gameState, gameResult, side }) {
+export function GameAnimation({ gameState, gameResult }) {
+  const [headsVisible, setHeadsVisible] = useState(false);
+  const [tailsVisible, setTailsVisible] = useState(false);
+
   const animationClass =
     gameState === GameAnimationState.AWAITING
       ? "awaiting-animation"
@@ -11,26 +14,25 @@ export function GameAnimation({ gameState, gameResult, side }) {
       ? "resulting-animation"
       : "";
 
+  useEffect(() => {
+    if (gameResult && gameResult.simulationResult) {
+      if (gameResult.simulationResult.toString() === "0") {
+        setHeadsVisible(true);
+        setTailsVisible(false);
+      } else {
+        setHeadsVisible(false);
+        setTailsVisible(true);
+      }
+    }
+  }, [gameResult]);
   return (
     <>
       <div className={`game-animation ${animationClass}`}>
         <div className="coin" id="coin">
-          <div
-            className={`heads ${
-              gameResult?.simulationResult?.toString() === "0"
-                ? "visible"
-                : ""
-            }`}
-          >
+          <div className={`heads ${headsVisible ? "visible" : ""}`}>
             <img src={heads} />
           </div>
-          <div
-            className={`tails ${
-              gameResult?.simulationResult?.toString() === "1"
-                ? "visible"
-                : ""
-            }`}
-          >
+          <div className={`tails ${tailsVisible ? "visible" : ""}`}>
             <img src={tails} />
           </div>
         </div>

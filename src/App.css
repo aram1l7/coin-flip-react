@@ -107,3 +107,16 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.history-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+}
+
+.error {
+  font-size: 14px;
+  color: rgb(233, 32, 32);
+  font-weight: 500;
+}
